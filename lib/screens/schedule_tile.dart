@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class ScheduleTile extends StatefulWidget {
   int index;
   TimeOfDay time = TimeOfDay.now();
+  TimeOfDay endTime = TimeOfDay.now();
   TimeOfDay? selectedTime;
   StreamController tempController;
   ScheduleTile(this.index, this.tempController);
@@ -29,14 +30,19 @@ class _ScheduleTileState extends State<ScheduleTile> {
               selectTime(context);
           },
             child: Text("Start time", style: myStyle,)),
-        Text("End time", style: myStyle,)
+          GestureDetector(
+              onTap: (){
+                selectEndTime(context);
+              },
+              child: Text("End time", style: myStyle,)),
       ],),
 
       subtitle: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
         Text("${widget.time.hour} : ${widget.time.minute} "),
-        Text(widget.time.hour.toString())],),
+        Text("${widget.endTime.hour} : ${widget.endTime.minute} "),
+        ],),
 
       trailing: GestureDetector(
           onTap: (){
@@ -51,6 +57,12 @@ class _ScheduleTileState extends State<ScheduleTile> {
     widget.selectedTime = await showTimePicker(context: context, initialTime: widget.time);
     setState(() {
     widget.time = widget.selectedTime!;
+    });
+  }
+  Future<void> selectEndTime(BuildContext context) async {
+    widget.selectedTime = await showTimePicker(context: context, initialTime: widget.time);
+    setState(() {
+      widget.endTime = widget.selectedTime!;
     });
   }
 }

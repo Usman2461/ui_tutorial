@@ -61,7 +61,7 @@ class DaysTile extends StatelessWidget {
                   child: ListView.builder(
                       itemCount: scheduleTiles.length,
                       itemBuilder: (context, index){
-                        return ScheduleTile(index, btnStream);
+                        return ScheduleTile(index, btnStream );
                       }) ,
                 ),
                 TextButton(child: Text("Add Schedlue"), onPressed: (){
